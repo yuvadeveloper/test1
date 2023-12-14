@@ -59,7 +59,8 @@ jobs:
 
       - name: Use Xcode 12.5 install
         run: sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-
+      
       - name: Build iOS app
         run: |
-          npx react-native run-ios --configuration Release --verbose
+          npx react-native run-ios --scheme Release --verbose
+
