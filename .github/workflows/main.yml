@@ -62,5 +62,5 @@ jobs:
       
       - name: Build iOS app
         run: |
-          npx react-native run-ios --scheme Release --verbose
+          npx react-native run-ios Release --verbose
 
