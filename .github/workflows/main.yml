@@ -64,3 +64,13 @@ jobs:
         run: |
           npx react-native run-ios Release --verbose
 
+      - name: Archive iOS app
+        run: |
+          xcodebuild archive -workspace Awesometextcode.xcworkspace -scheme Awesometextcode -configuration Release -archivePath build/Awesometextcode_v1.0.xcarchive
+        working-directory: ios
+
+      - name: Export iOS app
+        run: |
+          xcodebuild -exportArchive -archivePath build/Awesometextcode_v1.0.xcarchive -exportPath build -exportOptionsPlist ExportOptions.plist
+        working-directory: ios
+
