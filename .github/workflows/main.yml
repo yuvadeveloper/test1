@@ -24,7 +24,7 @@ jobs:
         working-directory: .
 
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm i --legacy-peer-deps
 
       - name: Update CocoaPods
         run: gem install cocoapods -v '1.11.2'
