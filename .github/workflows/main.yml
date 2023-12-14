@@ -1,0 +1,63 @@
+name: Build and Deploy to App Store
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Print Current Directory 1
+        run: |
+          pwd
+        working-directory: .
+
+      - name: Install dependencies
+        run: npm i --legacy-peer-deps  # Use npm ci for a more consistent and reproducible install
+
+      - name: Update CocoaPods
+        run: gem install cocoapods -v '1.11.2'  # Specify a version to avoid potential breaking changes
+
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ios
+          pod install
+
+      - name: Update CocoaPods
+        run: |
+          cd ios
+          pod update
+
+      - name: Unlink manual dependencies
+        run: |
+          npx react-native unlink react-native-keep-awake
+          npx react-native unlink react-native-location
+          npx react-native unlink react-native-svg
+
+      - name: Print Current Directory 2
+        run: |
+          pwd
+        working-directory: .
+
+      - name: Clean Build
+        run: |
+          cd ios
+          xcodebuild clean
+
+      - name: Use Xcode 12.5 install
+        run: sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+
+      - name: Build iOS app
+        run: |
+          npx react-native run-ios --configuration Release --verbose
