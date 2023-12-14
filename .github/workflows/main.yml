@@ -39,11 +39,11 @@ jobs:
           cd ios
           pod update
 
-      - name: Unlink manual dependencies
-        run: |
-          npx react-native unlink react-native-keep-awake
-          npx react-native unlink react-native-location
-          npx react-native unlink react-native-svg
+      # - name: Unlink manual dependencies
+      #   run: |
+      #     npx react-native unlink react-native-keep-awake
+      #     npx react-native unlink react-native-location
+      #     npx react-native unlink react-native-svg
 
       - name: Print Current Directory 2
         run: |
